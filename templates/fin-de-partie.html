@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Fin de partie.</title>
+    <link rel="stylesheet" href={{ url_for('static',filename = 'css/style.css') }}>
 </head>
 <body>
 <h1> Partie terminée.</h1>
 {# si la partie est nulle : #}
 {% if nulle == True %}
-    <p> Vous avez fait égalité. </p>
+    <p class="resultat"> Vous avez fait égalité. </p>
     <a href="{{ url_for('nouvellePartie') }}"> Cliquez ici pour rejouer.</a>
 {% endif %}
 {# Si le joueur gagne #}
 {% if ((joueur == 'X' and gagnant == -1) or (joueur == 'O' and gagnant == 1)) and nulle == False %}
-    <p> Bravo, vous avez gagné !</p>
+    <p class="resultat"> Bravo, vous avez gagné !</p>
     <a href="{{ url_for('nouvellePartie') }}"> Cliquez ici pour rejouer.</a>
 {% endif %}
 {# Si l'ia gagne  #}
 {% if ((joueur == 'X' and gagnant == 1) or (joueur == 'O' and gagnant == -1)) and nulle == False %}
-    <p> L'ordinateur a gagné.</p>
+    <p class="resultat"> L'ordinateur a gagné.</p>
     <a href="{{ url_for('nouvellePartie') }}"> Cliquez ici pour rejouer.</a>
 {% endif %}
 

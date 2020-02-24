@@ -18,3 +18,15 @@ td, th {
     text-align: center;
 }
 
+p.resultat {
+    text-align: center;
+    font-size: 40px;
+    color: #34393E;
+}
+
+form.form_debut_partie {
+    font-size: 30px;
+    padding: 10px;
+    width: 700px;
+    margin: auto;
+}

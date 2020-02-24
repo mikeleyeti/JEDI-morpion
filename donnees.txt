@@ -1,1 +1,1 @@
-{"plateau": [[-1, 1, 1], [1, -1, -1], [-1, -1, 1]], "joueur": "X", "suivant": "ia", "gagnant": false, "nulle": false}
+{"plateau": [[0, 0, 0], [0, 0, 0], [0, 0, 0]], "joueur": "O", "suivant": "humain", "gagnant": false, "nulle": false}

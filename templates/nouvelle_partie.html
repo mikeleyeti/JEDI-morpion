@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Nouvelle Partie</title>
+    <link rel="stylesheet" href={{ url_for('static',filename = 'css/style.css') }}>
 </head>
 <body>
-<form action="" method="POST">
+<h1> Le jeu du morpion.</h1>
+<form class='form_debut_partie' action="" method="POST">
     <p> Choisissez votre symbole : </p>
     <input type="radio" name="joueur" id="joueur" value="X" checked> <label for="X">X</label>
     <input type="radio" name="joueur" id="joueur" value="O"> <label for="O">O</label>
