@@ -1,5 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, request
 import json
+from random import choice
+
+from flask import Flask, render_template, redirect, request
 
 morpion_app = Flask(__name__)
 
@@ -43,8 +45,18 @@ def ecriture_donnees(plateau, joueur, suivant, gagnant, nulle):
         json.dump(dico, fichier)
 
 
-def manche(plateau, ligne, colonne):
-    pass
+def IA_niveau_0(plateau, joueur):
+    liste_coups = []
+    for i in range(len(plateau)):
+        for j in range(len(plateau[i])):
+            if plateau[i][j] == 0:
+                liste_coups.append((i, j))
+    i, j = choice(liste_coups)
+    if joueur == 'X':
+        plateau[i][j] = 1
+    else:
+        plateau[i][j] = -1
+    return plateau
 
 
 @morpion_app.route('/', methods=['GET'])
@@ -63,6 +75,10 @@ def debutJeu():
 @morpion_app.route('/jeu')
 def affichage():
     plateau, joueur, suivant, gagnant, nulle = lecture_donnees()
+    if suivant == 'ia':
+        plateau = IA_niveau_0(plateau, joueur)
+        suivant = 'humain'
+    ecriture_donnees(plateau, joueur, suivant, gagnant, nulle)
     return render_template('jeu.html', plateau=plateau)
 
 
@@ -70,12 +86,15 @@ def affichage():
 def jouer(ligne, colonne):
     plateau, joueur, suivant, gagnant, nulle = lecture_donnees()
     # # A modifier : faire appel à une fonction jouer qui teste la case...
-    if joueur == 'X':
-        plateau[ligne][colonne] = -1
-        joueur = 'O'
-    else:
-        plateau[ligne][colonne] = 1
-        joueur = 'X'
+    if suivant == 'humain':
+        if joueur == 'X':
+            plateau[ligne][colonne] = -1
+        else:
+            plateau[ligne][colonne] = 1
+        suivant = 'ia'
+    else:  # suivant == 'ia'
+        # fonction IA basée sur min/max pour remplacer IA aléatoire
+        print("A l'ordi de jouer")
     ecriture_donnees(plateau, joueur, suivant, gagnant, nulle)
     return redirect('/jeu')
 
@@ -89,3 +108,4 @@ def reset():
 
 if __name__ == '__main__':
     morpion_app.run(debug=True)
+# todo : gérer la fin de partie : nulle et victoire
