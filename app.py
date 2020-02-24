@@ -59,6 +59,36 @@ def IA_niveau_0(plateau, joueur):
     return plateau
 
 
+def test_fin_partie(plateau):
+    gagnant = False
+    nulle = False
+    # test lignes
+    for i in range(len(plateau)):
+        if plateau[i][0] == plateau[i][1] == plateau[i][2] and plateau[i][0] != 0:
+            gagnant = plateau[i][0]
+    # test colonnes
+    for i in range(len(plateau)):
+        if plateau[0][i] == plateau[1][i] == plateau[2][i] and plateau[0][i] != 0:
+            gagnant = plateau[0][i]
+    # test diagonales
+    if ((plateau[0][0] == plateau[1][1] == plateau[2][2]) or (plateau[0][2] == plateau[1][1] == plateau[2][0])) and \
+            plateau[1][1] != 0:
+        gagnant = plateau[1][1]
+    if sum([l.count(0) for l in plateau]) == 0:  # Compte le nombre de case = 0
+        if gagnant == False:
+            nulle = True
+    return gagnant, nulle
+
+
+# Tests de la fonction test_fin_partie
+assert test_fin_partie([[0, 0, 0], [0, 0, 0], [0, 0, 0]]) == (False, False)
+assert test_fin_partie([[1, 1, 1], [0, 0, 0], [0, 0, 0]]) == (1, False)
+assert test_fin_partie([[0, 1, 1], [-1, -1, -1], [0, 0, 0]]) == (-1, False)
+assert test_fin_partie([[0, 1, 1], [-1, 1, -1], [1, 0, 0]]) == (1, False)
+assert test_fin_partie([[0, 1, -1], [-1, 1, -1], [1, 0, -1]]) == (-1, False)
+assert test_fin_partie([[-1, 1, -1], [-1, 1, -1], [1, -1, 1]]) == (False, True)
+
+
 @morpion_app.route('/', methods=['GET'])
 def nouvellePartie():
     return render_template('nouvelle_partie.html')
@@ -75,9 +105,15 @@ def debutJeu():
 @morpion_app.route('/jeu')
 def affichage():
     plateau, joueur, suivant, gagnant, nulle = lecture_donnees()
+    gagnant, nulle = test_fin_partie(plateau)
+    if nulle or gagnant != False:
+        return render_template("fin-de-partie.html", gagnant=gagnant, nulle=nulle, joueur=joueur)
     if suivant == 'ia':
         plateau = IA_niveau_0(plateau, joueur)
         suivant = 'humain'
+    gagnant, nulle = test_fin_partie(plateau)
+    if nulle or gagnant != False:
+        return render_template("fin-de-partie.html", gagnant=gagnant, nulle=nulle, joueur=joueur)
     ecriture_donnees(plateau, joueur, suivant, gagnant, nulle)
     return render_template('jeu.html', plateau=plateau)
 
@@ -108,4 +144,3 @@ def reset():
 
 if __name__ == '__main__':
     morpion_app.run(debug=True)
-# todo : gérer la fin de partie : nulle et victoire
