@@ -26,7 +26,7 @@ def nouvelle_partie():
 
 @morpion_app.route('/', methods=['POST'])
 def debut_jeu():
-    global plateau, joueur, joueur_ia
+    global plateau, joueur
 
     plateau = morpion.nouveau_plateau()
     joueur = getattr(morpion, request.form['joueur'])

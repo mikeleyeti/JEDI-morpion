@@ -16,7 +16,7 @@ def autre_joueur(joueur):
     """
     TODO.
     """
-    return O if joueur == X else O
+    return O if joueur == X else X
 
 
 def est_vide(plateau, ligne, colonne):
