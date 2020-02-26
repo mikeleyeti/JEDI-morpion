@@ -14,21 +14,22 @@ def nouveau_plateau():
 
 def autre_joueur(joueur):
     """
-    TODO.
+    Retourne l'identifiant de l'aversaire de joueur.
     """
     return O if joueur == X else X
 
 
 def est_vide(plateau, ligne, colonne):
     """
-    TODO.
+    Teste si la case du plateau est vide.
     """
     return plateau[ligne][colonne] == Vide
 
 
 def coups_possibles(plateau):
     """
-    TODO.
+    Retourne la liste des cases vides sous la forme de couples
+    de coodonnées.
     """
     return [(i, j) for i in range(3) for j in range(3)
             if est_vide(plateau, i, j)]
@@ -36,29 +37,36 @@ def coups_possibles(plateau):
 
 def jouer(plateau, joueur, ligne, colonne):
     """
-    TODO.
+    Joue un coup sur le plateau.
     """
     plateau[ligne][colonne] = joueur
 
 
 def jouer_ia_alea(plateau, joueur):
     """
-    TODO.
+    Jouer un coup aléatoire sur le plateau.
     """
     i, j = choice(coups_possibles(plateau))
     jouer(plateau, joueur, i, j)
 
 
+def nombre_cases_vides(plateau):
+    """
+    Retourne le nombre de cases vides sur le plateau.
+    """
+    return sum(l.count(Vide) for l in plateau)
+
+
 def est_plein(plateau):
     """
-    TODO.
+    Teste si le plateau est plein.
     """
-    return sum(l.count(Vide) for l in plateau) == 0
+    return nombre_cases_vides(plateau) == 0
 
 
 def victoire_ligne(plateau, joueur):
     """
-    TODO.
+    Teste si le plateau admet une victoire en ligne pour le joueur.
     """
     for ligne in plateau:
         if all(c == joueur for c in ligne):
@@ -68,7 +76,7 @@ def victoire_ligne(plateau, joueur):
 
 def victoire_colonne(plateau, joueur):
     """
-    TODO.
+    Teste si le plateau admet une victoire en colonne pour le joueur.
     """
     for j in range(3):
         if all(plateau[i][j] == joueur for i in range(3)):
@@ -78,7 +86,7 @@ def victoire_colonne(plateau, joueur):
 
 def victoire_diagonale(plateau, joueur):
     """
-    TODO.
+    Teste si le plateau admet une victoire en diagonale pour le joueur.
     """
     if (all(plateau[2 - i][i] == joueur for i in range(3))
             or all(plateau[i][i] == joueur for i in range(3))):
@@ -88,7 +96,7 @@ def victoire_diagonale(plateau, joueur):
 
 def victoire(plateau, joueur):
     """
-    TODO.
+    Teste si le plateau admet une victoire pour le joueur.
     """
     return (victoire_ligne(plateau, joueur)
             or victoire_colonne(plateau, joueur)
