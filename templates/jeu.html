@@ -14,11 +14,9 @@
       {% for j in range(3) %}
       <td>
         {% if est_vide(i, j) %}
-        <a class="pion" href="{{ url_for("jouer",ligne=i,colonne=j) }}">
-          {{ pion(plateau[i][j]) }}
-        </a>
+        <a href="{{ url_for("jouer",ligne=i,colonne=j) }}"></a>
         {% else %}
-        {{ pion(plateau[i][j]) }}
+          {{ pion(plateau[i][j]) }}
         {% endif %}
       </td>
       {% endfor %}
@@ -29,5 +27,4 @@
     <a href="{{ url_for('reset') }}">RESET</a>
   </div>
 </body>
-<script src={{ url_for('static',filename = 'js/script.js') }}></script>
 </html>

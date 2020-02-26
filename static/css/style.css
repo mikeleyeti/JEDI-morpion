@@ -12,16 +12,18 @@ h1 {
     text-align: center;
 }
 
-a.pion {
-    text-decoration: none;
-}
-
-table td {
+table tr td {
     width: 145px;
     height: 145px;
     overflow: hidden;
     white-space: nowrap;
     border: 5px solid #34393E;
+}
+
+table tr td a {
+    display: block;
+    height:100%;
+    width:100%;
 }
 
 p.resultat {
