@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fin de partie.</title>
+    <link rel="stylesheet" href={{ url_for('static',filename = 'css/style.css') }}>
+</head>
+<body>
+<h1> Partie terminée.</h1>
+{# si la partie est nulle : #}
+{% if nulle %}
+    <p class="resultat"> Vous avez fait égalité. </p>
+{# si le joueur gagne : #}
+{% elif joueur == gagnant %}
+    <p class="resultat"> Bravo, vous avez gagné !</p>
+{# si l'ia gagne  #}
+{% else %}
+    <p class="resultat"> L'ordinateur a gagné.</p>
+{% endif %}
+  <div style="text-align:center">
+    <a href="{{ url_for('nouvelle_partie') }}">
+      Cliquez ici pour rejouer.
+    </a>
+  </div>
+</body>
+</html>

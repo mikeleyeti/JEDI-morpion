@@ -1,1 +1,0 @@
-{"plateau": [[0, 0, 0], [0, 0, 0], [0, 0, 0]], "joueur": "O", "suivant": "humain", "gagnant": false, "nulle": false}

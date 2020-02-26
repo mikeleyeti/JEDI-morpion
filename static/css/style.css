@@ -4,18 +4,24 @@ h1 {
     text-align: center;
 }
 
-td, th {
-    border: 5px solid #34393E;
-    padding: 50px 50px 50px 50px;
-}
-
 #tableau_jeu {
     background-color: #FFDA8C;
     font-size: 50px;
     margin: auto;
     border-collapse: collapse;
-    width: 135px;
     text-align: center;
+}
+
+a.pion {
+    text-decoration: none;
+}
+
+table td {
+    width: 145px;
+    height: 145px;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 5px solid #34393E;
 }
 
 p.resultat {

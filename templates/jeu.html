@@ -6,39 +6,28 @@
     <link rel="stylesheet" href={{ url_for('static',filename = 'css/style.css') }}>
 </head>
 <body>
-<h1> Le jeu du morpion.</h1>
-
-{#todo : faire le tableau à l'aide d'une boucle for#}
-{#todo : faire une version avec du javascript pour cliquer sur les cases#}
-<table id="tableau_jeu">
+  <h1> Le jeu du morpion.</h1>
+  {#todo : faire une version avec du javascript pour cliquer sur les cases#}
+  <table id="tableau_jeu" cellpadding="0" cellspacing="0">
+    {% for i in range(3) %}
     <tr>
-        <td> {% if plateau[0][0] == -1 %}  &#x274C {% elif plateau[0][0] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=0,colonne=0) }}"> ici</a> {% endif %} </td>
-        <td> {% if plateau[0][1] == -1 %}  &#x274C {% elif plateau[0][1] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=0,colonne=1) }}"> ici</a> {% endif %} </td>
-        <td> {% if plateau[0][2] == -1 %}  &#x274C {% elif plateau[0][2] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=0,colonne=2) }}"> ici</a> {% endif %} </td>
+      {% for j in range(3) %}
+      <td>
+        {% if est_vide(i, j) %}
+        <a class="pion" href="{{ url_for("jouer",ligne=i,colonne=j) }}">
+          {{ pion(plateau[i][j]) }}
+        </a>
+        {% else %}
+        {{ pion(plateau[i][j]) }}
+        {% endif %}
+      </td>
+      {% endfor %}
     </tr>
-    <tr>
-        <td> {% if plateau[1][0] == -1 %}  &#x274C {% elif plateau[1][0] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=1,colonne=0) }}"> ici</a> {% endif %} </td>
-        <td> {% if plateau[1][1] == -1 %}  &#x274C {% elif plateau[1][1] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=1,colonne=1) }}"> ici</a> {% endif %} </td>
-        <td> {% if plateau[1][2] == -1 %}  &#x274C {% elif plateau[1][2] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=1,colonne=2) }}"> ici</a> {% endif %} </td>
-    </tr>
-    <tr>
-        <td> {% if plateau[2][0] == -1 %}  &#x274C {% elif plateau[2][0] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=2,colonne=0) }}"> ici</a> {% endif %} </td>
-        <td> {% if plateau[2][1] == -1 %}  &#x274C {% elif plateau[2][1] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=2,colonne=1) }}"> ici</a> {% endif %} </td>
-        <td> {% if plateau[2][2] == -1 %}  &#x274C {% elif plateau[2][2] == 1 %}  &#x1F535 {% else %}
-            <a href="{{ url_for("jouer",ligne=2,colonne=2) }}"> ici</a> {% endif %} </td>
-    </tr>
-</table>
-
-<a href="{{ url_for('reset') }}">RESET</a>
-
+    {% endfor %}
+  </table>
+  <div style="text-align:center">
+    <a href="{{ url_for('reset') }}">RESET</a>
+  </div>
 </body>
 <script src={{ url_for('static',filename = 'js/script.js') }}></script>
 </html>
